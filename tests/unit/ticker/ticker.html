@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>jQuery UI Ticker Test Suite</title>
+
+	<link type="text/css" href="../../../themes/base/jquery.ui.ticker.css" rel="stylesheet" />
+
+	<script type="text/javascript" src="../../../jquery-1.4.3.js"></script>
+	<script type="text/javascript" src="../../../ui/jquery.ui.core.js"></script>
+	<script type="text/javascript" src="../../../ui/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="../../../ui/jquery.ui.ticker.js"></script>
+
+	<link rel="stylesheet" href="../../../external/qunit.css" type="text/css"/>
+	<script type="text/javascript" src="../../../external/qunit.js"></script>
+	<script type="text/javascript" src="../../jquery.simulate.js"></script>
+	<script type="text/javascript" src="../testsuite.js"></script>
+
+	<script type="text/javascript" src="ticker_core.js"></script>
+	<script type="text/javascript" src="ticker_defaults.js"></script>
+	<script type="text/javascript" src="ticker_events.js"></script>
+	<script type="text/javascript" src="ticker_methods.js"></script>
+	<script type="text/javascript" src="ticker_options.js"></script>
+	<script type="text/javascript" src="ticker_tickets.js"></script>
+	
+	<script type="text/javascript" src="../swarminject.js"></script>
+</head>
+<body>
+
+<h1 id="qunit-header">jQuery UI Ticker Test Suite</h1>
+<h2 id="qunit-banner"></h2>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests">
+</ol>
+
+<div id="main" style="position: absolute; top: -10000px; left: -10000px;">
+	<ul id="ticker" class="foo">
+		<li class="bar">Item1</li>
+		<li class="bar">Item2</li>
+		<li class="bar">Item3</li>
+		<li class="bar">Item4</li>
+		<li class="bar">Item5</li>
+		<li class="bar">Item6</li>
+	</ul>
+</div>
+
+</body>
+</html>

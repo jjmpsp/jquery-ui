@@ -23,6 +23,7 @@
 	<script type="text/javascript" src="../../ui/jquery.ui.slider.js"></script>
 	<script type="text/javascript" src="../../ui/jquery.ui.sortable.js"></script>
 	<script type="text/javascript" src="../../ui/jquery.ui.tabs.js"></script>
+	<script type="text/javascript" src="../../ui/jquery.ui.ticker.js"></script>
 	<script type="text/javascript">
 	$(function() {
 		$("#accordion").accordion({ header: "h3" });
@@ -49,6 +50,9 @@
 		$("#slider").slider();
 		$("#sortable").sortable();
 		$("#tabs").tabs();
+		$("#ticker").ticker({
+			next: function(lastItem) { return lastItem; }
+		});
 	});
 	</script>
 </head>
@@ -182,6 +186,17 @@
 		<div id="tabs-2">Phasellus mattis tincidunt nibh. Cras orci urna, blandit id, pretium vel, aliquet ornare, felis. Maecenas scelerisque sem non nisl. Fusce sed lorem in enim dictum bibendum.</div>
 		<div id="tabs-3">Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.</div>
 	</div>
+</li>
+<li class="plugin">
+	Ticker
+	<ul id="ticker">
+		<li>Ticker Item 1</li>
+		<li>Ticker Item 2</li>
+		<li>Ticker Item 3</li>
+		<li>Ticker Item 4</li>
+		<li>Ticker Item 5</li>
+		<li>Ticker Item 6</li>
+	</ul>
 </li>
 </ul>
 

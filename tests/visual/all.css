@@ -82,3 +82,8 @@ li.plugin {
 #droppable .draggable {
 	margin: 7px;
 }
+
+#ticker {
+	width: 200px;
+	margin: 10px 10px 0px 10px;
+}

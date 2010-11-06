@@ -1,0 +1,11 @@
+/*
+ * jQuery UI Ticker @VERSION
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Ticker#theming
+ */
+.ui-ticker { width: 100%; margin: 0px; padding: 0px; }
+.ui-ticker .ui-ticker-content { display: block; font-size: 1em; padding: .5em .5em .5em .7em; margin-bottom: 1px; }
