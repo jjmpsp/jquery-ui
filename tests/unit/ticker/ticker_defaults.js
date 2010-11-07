@@ -4,6 +4,7 @@
 
 var ticker_defaults = {
 	disabled: false,
+	active: true,
 	initialTimeout: 4000,
 	mouseOnTimeout: 8000,
 	mouseOffTimeout: 4000,
