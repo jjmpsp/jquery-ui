@@ -71,12 +71,18 @@ $.widget( "ui.ticker", {
 	},
 
 	destroy: function() {
-		this.element.unbind(".ticker");
-		this.element.children( "li" ).unbind(".ticker");
-		this.element.removeClass( "ui-ticker ui-widget ui-corner-all" );
-		this.element.children( "li" ).removeClass(itemClasses + " ui-state-hover ui-state-focus");
+		var self = this;
+		
+		self.element.unbind(".ticker");
+		self.element.children( "li" ).unbind(".ticker");
+		self.element.removeClass( "ui-ticker ui-widget ui-corner-all" );
+		self.element.children( "li" ).removeClass(itemClasses + " ui-state-hover ui-state-focus");
+		if (self.timeoutId !== null) {
+			window.clearTimeout(self.timeoutId);
+			self.timeoutId = null;
+		}
 
-		return $.Widget.prototype.destroy.call( this );
+		return $.Widget.prototype.destroy.call( self );
 	},
 	
 	_addItemBindings: function(item) {
@@ -115,6 +121,10 @@ $.widget( "ui.ticker", {
 			newItem,
 			lastItem;
 			
+		if (false === self._trigger('beforeScroll')) {
+			return;
+		}
+			
 		lastItem = self.element.children().last().clone();
 		lastItem.removeClass(itemClasses + " ui-state-hover ui-state-focus");
 		
@@ -129,17 +139,38 @@ $.widget( "ui.ticker", {
 					.prependTo(self.element)
 					.css('visibility', 'hidden')
 					.slideDown(options.slidingTime, function() {
-						$( this ).fadeTo(0, 0).css('visibility', 'visible').fadeTo(options.fadeInTime, 1);
+						$( this )
+							.fadeTo(0, 0)
+							.css('visibility', 'visible')
+							.fadeTo(options.fadeInTime, 1, function() {
+								self._trigger('afterFade');
+							});
 					});
 
 				self.element.children().last().slideUp(options.slidingTime, function() {
 					$( this ).remove();
+					self._trigger('afterScroll');
 				});
 			}
 		}
 		
 		if (options.active) {
 			self.timeoutId = window.setTimeout(function() { self._scroll(); }, self.speed);
+		}
+	},
+	
+	_setOption: function( key, value ) {
+		$.Widget.prototype._setOption.apply( this, arguments );
+		
+		switch (key) {
+			case "active":
+				if (value) {
+					this.start();
+				}
+				else {
+					this.stop();
+				}
+				break;
 		}
 	},
 	
@@ -160,7 +191,7 @@ $.widget( "ui.ticker", {
 		
 		options.active = true;
 		if (self.timeoutId === null) {
-			self.timeoutId = window.setTimeout(function() { self._scroll(); }, self.speed);
+			self.timeoutId = window.setTimeout(function() { self._scroll(); }, options.initialTimeout);
 		}
 	}
 });
