@@ -119,7 +119,7 @@ test('{next: function() {return "TestItem"}}', function() {
 	$("#ticker").ticker({
 		initialTimeout: 0,
 		slidingTime: 0,
-		fadeInTime: 0,
+		fadeTime: 0,
 		mouseOffTimeout: 10000,
 		next: function(lastItem) {
 			return "<li>TestItem</li>";

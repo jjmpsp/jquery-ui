@@ -12,7 +12,7 @@ test("beforeScroll", function() {
 	$("#ticker").ticker({
 		initialTimeout: 0,
 		slidingTime: 0,
-		fadeInTime: 0,
+		fadeTime: 0,
 		next: function(lastItem) { return '<li>TestItem</li>'; },
 		beforeScroll: function(event, ui) {
 			ok(true, 'before scrolling fires beforeScroll callback');
@@ -32,7 +32,7 @@ test("afterScroll", function() {
 	$("#ticker").ticker({
 		initialTimeout: 0,
 		slidingTime: 0,
-		fadeInTime: 10000,
+		fadeTime: 10000,
 		next: function(lastItem) { return '<li>TestItem</li>'; },
 		afterScroll: function(event, ui) { 
 			ok(true, 'after scrolling fires afterScroll callback');
@@ -53,7 +53,7 @@ test("afterFade", function() {
 	$("#ticker").ticker({
 		initialTimeout: 0,
 		slidingTime: 0,
-		fadeInTime: 100,
+		fadeTime: 100,
 		next: function(lastItem) { return '<li>TestItem</li>'; },
 		afterFade: function(event, ui) {
 			ok(true, 'after fade fires afterFade callback');

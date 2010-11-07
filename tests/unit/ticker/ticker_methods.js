@@ -60,7 +60,7 @@ test("stop after scroll", function() {
 		mouseOnTimeout: 100,
 		mouseOffTimeout: 100,
 		slidingTime: 0,
-		fadeInTime: 0,
+		fadeTime: 0,
 		next: function(lastItem) {
 			if (counter == 0) {
 				ok(true, "ticker scrolled one time");
@@ -89,7 +89,7 @@ test("start", function() {
 		mouseOnTimeout: 100,
 		mouseOffTimeout: 100,
 		slidingTime: 0,
-		fadeInTime: 0,
+		fadeTime: 0,
 		next: function(lastItem) {
 			if (started) {
 				ok(true, "ticker scrolled after it was started");

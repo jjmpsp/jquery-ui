@@ -22,7 +22,7 @@ $.widget( "ui.ticker", {
 		mouseOnTimeout: 8000,
 		mouseOffTimeout: 4000,
 		slidingTime: 800,
-		fadeInTime: 1000,
+		fadeTime: 1000,
 		next: null
 	},
 	
@@ -142,7 +142,7 @@ $.widget( "ui.ticker", {
 						$( this )
 							.fadeTo(0, 0)
 							.css('visibility', 'visible')
-							.fadeTo(options.fadeInTime, 1, function() {
+							.fadeTo(options.fadeTime, 1, function() {
 								self._trigger('afterFade');
 							});
 					});

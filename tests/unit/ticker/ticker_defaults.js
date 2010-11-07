@@ -9,7 +9,7 @@ var ticker_defaults = {
 	mouseOnTimeout: 8000,
 	mouseOffTimeout: 4000,
 	slidingTime: 800,
-	fadeInTime: 1000,
+	fadeTime: 1000,
 	next: null
 };
 
