@@ -59,6 +59,8 @@ $.widget( "ui.ticker", {
 			
 		self.element.children( "li" ).addClass(itemClasses);
 		self._addItemBindings(self.element.children( "li" ));
+
+		self.element.height(self.element.height());
 	},
 	
 	_init: function() {
@@ -145,12 +147,9 @@ $.widget( "ui.ticker", {
 							.fadeTo(options.fadeTime, 1, function() {
 								self._trigger('afterFade');
 							});
+							self.element.children().last().remove();
+							self._trigger('afterScroll');
 					});
-
-				self.element.children().last().slideUp(options.scrollTime, function() {
-					$( this ).remove();
-					self._trigger('afterScroll');
-				});
 			}
 		}
 		
