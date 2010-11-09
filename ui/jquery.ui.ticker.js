@@ -138,7 +138,7 @@ $.widget( "ui.ticker", {
 			newItem,
 			lastItem;
 			
-		lastItem = self.element.children().last().clone();
+		lastItem = self.element.children().last().clone(true);
 		lastItem.removeClass(itemClasses + " ui-state-hover ui-state-focus");
 		
 		if (self.options.next !== null) {
