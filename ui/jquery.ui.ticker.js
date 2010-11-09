@@ -130,9 +130,7 @@ $.widget( "ui.ticker", {
 			newItem = self.options.nextItem(lastItem);
 		
 			if (newItem != null && newItem.length > 0) {
-				if (false === self._trigger('beforeScroll')) {
-					return;
-				}
+				self._trigger('beforeScroll');
 				
 				newItem.addClass(itemClasses);
 				self._addItemBindings(newItem);
