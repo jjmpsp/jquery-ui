@@ -21,9 +21,9 @@ $.widget( "ui.ticker", {
 		initialTimeout: 4000,
 		mouseOnTimeout: 8000,
 		mouseOffTimeout: 4000,
-		slidingTime: 800,
+		scrollTime: 800,
 		fadeTime: 1000,
-		next: null
+		nextItem: null
 	},
 	
 	_create: function() {
@@ -121,24 +121,24 @@ $.widget( "ui.ticker", {
 			newItem,
 			lastItem;
 			
-		if (false === self._trigger('beforeScroll')) {
-			return;
-		}
-			
 		lastItem = self.element.children().last().clone();
 		lastItem.removeClass(itemClasses + " ui-state-hover ui-state-focus");
 		
 		if (self.options.next !== null) {
-			newItem = $( self.options.next(lastItem.get()) );
+			newItem = self.options.nextItem(lastItem);
 		
-			if (newItem.length > 0) {
+			if (newItem != null && newItem.length > 0) {
+				if (false === self._trigger('beforeScroll')) {
+					return;
+				}
+				
 				newItem.addClass(itemClasses);
 				self._addItemBindings(newItem);
 				newItem
 					.hide()
 					.prependTo(self.element)
 					.css('visibility', 'hidden')
-					.slideDown(options.slidingTime, function() {
+					.slideDown(options.scrollTime, function() {
 						$( this )
 							.fadeTo(0, 0)
 							.css('visibility', 'visible')
@@ -147,7 +147,7 @@ $.widget( "ui.ticker", {
 							});
 					});
 
-				self.element.children().last().slideUp(options.slidingTime, function() {
+				self.element.children().last().slideUp(options.scrollTime, function() {
 					$( this ).remove();
 					self._trigger('afterScroll');
 				});

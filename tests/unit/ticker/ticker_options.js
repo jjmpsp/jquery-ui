@@ -11,7 +11,7 @@ test("{initalTimout: 200}", function() {
 	var nextCalled = false;
 	$("#ticker").ticker({
 		initialTimeout: 200,
-		next: function(lastItem) {
+		nextItem: function(lastItem) {
 			nextCalled = true;
 			return lastItem;
 		}
@@ -37,7 +37,7 @@ test("{initialTimeout: 200} after calling start method", function() {
 	var nextCalled = false;
 	$("#ticker").ticker({
 		initialTimeout: 200,
-		next: function(lastItem) {
+		nextItem: function(lastItem) {
 			nextCalled = true;
 			return lastItem;
 		}
@@ -71,7 +71,7 @@ test("{mouseOffTimeout: 100}", function() {
 		initialTimeout: 0,
 		mouseOnTimeout: 10000,
 		mouseOffTimeout: 100,
-		next: function(lastItem) {
+		nextItem: function(lastItem) {
 			ok(true, "Next called (one time after init and one time afterwards");
 			if (counter == 1) {
 				$("#ticker").ticker("stop");
@@ -96,7 +96,7 @@ test("{mouseOnTimeout: 100}", function() {
 		initialTimeout: 0,
 		mouseOnTimeout: 100,
 		mouseOffTimeout: 10000,
-		next: function(lastItem) {
+		nextItem: function(lastItem) {
 			ok(true, "Next called (one time after init and one time afterwards");
 			if (counter == 1) {
 				$("#ticker").ticker("stop");
@@ -110,7 +110,7 @@ test("{mouseOnTimeout: 100}", function() {
 	window.setTimeout(function() { start(); }, 200 );
 });
 
-test('{next: function() {return "TestItem"}}', function() {
+test('{nextItem: function() {return $("TestItem")}}', function() {
 	expect(2);
 	stop();
 	
@@ -118,11 +118,11 @@ test('{next: function() {return "TestItem"}}', function() {
 	
 	$("#ticker").ticker({
 		initialTimeout: 0,
-		slidingTime: 0,
+		scrollTime: 0,
 		fadeTime: 0,
 		mouseOffTimeout: 10000,
-		next: function(lastItem) {
-			return "<li>TestItem</li>";
+		nextItem: function(lastItem) {
+			return $("<li>TestItem</li>");
 		}
 	});
 	

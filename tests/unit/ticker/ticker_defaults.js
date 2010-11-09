@@ -8,9 +8,9 @@ var ticker_defaults = {
 	initialTimeout: 4000,
 	mouseOnTimeout: 8000,
 	mouseOffTimeout: 4000,
-	slidingTime: 800,
+	scrollTime: 800,
 	fadeTime: 1000,
-	next: null
+	nextItem: null
 };
 
 commonWidgetTests('ticker', { defaults: ticker_defaults });

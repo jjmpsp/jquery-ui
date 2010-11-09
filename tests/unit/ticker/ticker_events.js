@@ -11,9 +11,9 @@ test("beforeScroll", function() {
 
 	$("#ticker").ticker({
 		initialTimeout: 0,
-		slidingTime: 0,
+		scrollTime: 0,
 		fadeTime: 0,
-		next: function(lastItem) { return '<li>TestItem</li>'; },
+		nextItem: function(lastItem) { return $('<li>TestItem</li>'); },
 		beforeScroll: function(event, ui) {
 			ok(true, 'before scrolling fires beforeScroll callback');
 			equals($("#ticker li").length, 6, "list does have all items");
@@ -31,9 +31,9 @@ test("afterScroll", function() {
 
 	$("#ticker").ticker({
 		initialTimeout: 0,
-		slidingTime: 0,
+		scrollTime: 0,
 		fadeTime: 10000,
-		next: function(lastItem) { return '<li>TestItem</li>'; },
+		nextItem: function(lastItem) { return $('<li>TestItem</li>'); },
 		afterScroll: function(event, ui) { 
 			ok(true, 'after scrolling fires afterScroll callback');
 			equals($("#ticker li").length, 6, "list does have all items");
@@ -52,9 +52,9 @@ test("afterFade", function() {
 
 	$("#ticker").ticker({
 		initialTimeout: 0,
-		slidingTime: 0,
+		scrollTime: 0,
 		fadeTime: 100,
-		next: function(lastItem) { return '<li>TestItem</li>'; },
+		nextItem: function(lastItem) { return $('<li>TestItem</li>'); },
 		afterFade: function(event, ui) {
 			ok(true, 'after fade fires afterFade callback');
 			equals($("#ticker li").length, 6, "list does have all items");
@@ -64,6 +64,42 @@ test("afterFade", function() {
 		}
 	});
 	
+	window.setTimeout(function() { start(); }, 200);
+});
+
+test("correct order of nextItem call and events", function() {
+	expect(4);
+	stop();
+
+	var counter = 0;
+
+	$("#ticker").ticker({
+		initialTimeout: 0,
+		scrollTime: 50,
+		fadeTime: 50,
+		nextItem: function(lastItem) {
+			if (counter == 0) {
+				ok(true, "nextItem was called first")
+			}
+			return $('<li>TestItem</li>');
+		},
+		beforeScroll: function(event, ui) {
+			if (counter == 0) {
+				ok(true, "beforeScroll was called second")
+			}
+		},
+		afterScroll: function(event, ui) {
+			if (counter == 0) {
+				ok(true, "afterScroll was called third")
+			}
+		},
+		afterFade: function(event, ui) {
+			if (counter == 0) {
+				ok(true, "afterFade was called fourth")
+			}
+		}
+	});
+
 	window.setTimeout(function() { start(); }, 200);
 });
 
