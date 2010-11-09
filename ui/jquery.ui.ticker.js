@@ -60,6 +60,13 @@ $.widget( "ui.ticker", {
 		self.element.children( "li" ).addClass(itemClasses);
 		self._addItemBindings(self.element.children( "li" ));
 
+		var style = self.element.attr("style");
+		if (style === undefined || style === null) {
+			self.originalStyle = null;
+		}
+		else {
+			self.originalStyle = self.element.attr("style")
+		}
 		self.element.height(self.element.height());
 	},
 	
@@ -74,14 +81,22 @@ $.widget( "ui.ticker", {
 
 	destroy: function() {
 		var self = this;
+
+		if (self.timeoutId !== null) {
+			window.clearTimeout(self.timeoutId);
+			self.timeoutId = null;
+		}
 		
 		self.element.unbind(".ticker");
 		self.element.children( "li" ).unbind(".ticker");
 		self.element.removeClass( "ui-ticker ui-widget ui-corner-all" );
 		self.element.children( "li" ).removeClass(itemClasses + " ui-state-hover ui-state-focus");
-		if (self.timeoutId !== null) {
-			window.clearTimeout(self.timeoutId);
-			self.timeoutId = null;
+
+		if (self.originalStyle === null) {
+			self.element.removeAttr("style");
+		}
+		else {
+			self.element.attr("style", self.originalStyle);
 		}
 
 		return $.Widget.prototype.destroy.call( self );
