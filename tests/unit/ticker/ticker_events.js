@@ -64,7 +64,7 @@ test("afterFade", function() {
 		}
 	});
 	
-	window.setTimeout(function() { start(); }, 200);
+	window.setTimeout(function() { start(); }, 300);
 });
 
 test("correct order of nextItem call and events", function() {

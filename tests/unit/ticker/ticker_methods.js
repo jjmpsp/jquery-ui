@@ -85,21 +85,21 @@ test("start", function() {
 	var started = false;
 	
 	$("#ticker").ticker({
-		initialTimeout: 100,
-		mouseOnTimeout: 100,
-		mouseOffTimeout: 100,
-		scrollTime: 0,
-		fadeTime: 0,
+		active: false,
+		initialTimeout: 0,
 		nextItem: function(lastItem) {
 			if (started) {
 				ok(true, "ticker scrolled after it was started");
 				$("#ticker").ticker("stop");
 			}
+			else {
+				ok(false, "ticker scrolled without being started");
+			}
+
 		}
 	});
-	$("#ticker").ticker("stop");
 	window.setTimeout(function() { started = true; $("#ticker").ticker("start"); }, 200);
-	window.setTimeout(function() { start(); }, 500);
+	window.setTimeout(function() { start(); }, 600);
 });
 
 })(jQuery);

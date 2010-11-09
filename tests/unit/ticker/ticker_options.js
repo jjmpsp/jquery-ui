@@ -81,7 +81,7 @@ test("{mouseOffTimeout: 100}", function() {
 		}
 	});
 	
-	window.setTimeout(function() { start(); }, 300 );
+	window.setTimeout(function() { start(); }, 400 );
 });
 
 test("{mouseOnTimeout: 100}", function() {
@@ -107,7 +107,7 @@ test("{mouseOnTimeout: 100}", function() {
 	});
 	
 	$("#ticker").simulate("mouseover");
-	window.setTimeout(function() { start(); }, 300 );
+	window.setTimeout(function() { start(); }, 400 );
 });
 
 test('{nextItem: function() {return $("TestItem")}}', function() {
