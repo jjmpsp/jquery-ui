@@ -18,10 +18,10 @@ There are several options to easily customize the visualization:
       }  // in this case the last item is directly added again to the top of the ticker
     });
 
-There are also several events fired:
-beforeScroll // directly before the ticker scrolls
-afterScroll // directly after the ticker scrolled
-afterFade // directly after the new item was faded in
+There are also several events fired:<br>
+beforeScroll // directly before the ticker scrolls<br>
+afterScroll // directly after the ticker scrolled<br>
+afterFade // directly after the new item was faded in<br>
 
 To bind to an event (the common jQuery UI way):
 
@@ -30,9 +30,9 @@ To bind to an event (the common jQuery UI way):
       beforeScroll: function(event, ui) { // just do what you like to do }
     });
 
-We also provide some methods:
-stop // stop the ticker immediately (respectively after a current on going scrolling/fading was finished)
-start // start the ticker again
+We also provide some methods:<br>
+stop // stop the ticker immediately (respectively after a current on going scrolling/fading was finished)<br>
+start // start the ticker again<br>
 
 To call those methods (the common jQuery UI way):
 
