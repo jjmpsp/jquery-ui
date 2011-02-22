@@ -11,11 +11,11 @@
  *   jquery.ui.core.js
  *   jquery.ui.widget.js
  */
-(function( $, undefined ) {
+(function($, undefined) {
 	
 var itemClasses = "ui-ticker-content ui-widget-content ui-helper-reset ui-state-default ui-corner-all";
 
-$.widget( "ui.ticker", {
+$.widget("ui.ticker", {
 	options: {
 		active: true,
 		initialTimeout: 4000,
@@ -35,9 +35,9 @@ $.widget( "ui.ticker", {
 		self.speed = options.mouseOffTimeout;
 		
 		self.element
-			.addClass( "ui-ticker ui-widget ui-corner-all" )
-			.bind( "mouseenter.ticker", function() {
-				if ( options.disabled ) {
+			.addClass("ui-ticker ui-widget ui-corner-all")
+			.bind("mouseenter.ticker", function() {
+				if (options.disabled) {
 					return;
 				}
 				self.speed = options.mouseOnTimeout;
@@ -46,8 +46,8 @@ $.widget( "ui.ticker", {
 					self.timeoutId = window.setTimeout(function() {self._scroll();}, self.speed);
 				}
 			})
-			.bind( "mouseleave.ticker", function() {
-				if ( options.disabled ) {
+			.bind("mouseleave.ticker", function() {
+				if (options.disabled) {
 					return;
 				}
 				self.speed = options.mouseOffTimeout;
@@ -57,8 +57,8 @@ $.widget( "ui.ticker", {
 				}
 			});
 			
-		self.element.children( "li" ).addClass(itemClasses);
-		self._addItemBindings(self.element.children( "li" ));
+		self.element.find("li").addClass(itemClasses);
+		self._addItemBindings(self.element.find("li"));
 
 		var style = self.element.attr("style");
 		if (style === undefined || style === null) {
@@ -90,9 +90,9 @@ $.widget( "ui.ticker", {
 		}
 		
 		self.element.unbind(".ticker");
-		self.element.children( "li" ).unbind(".ticker");
-		self.element.removeClass( "ui-ticker ui-widget ui-corner-all" );
-		self.element.children( "li" ).removeClass(itemClasses + " ui-state-hover ui-state-focus");
+		self.element.find("li").unbind(".ticker");
+		self.element.removeClass("ui-ticker ui-widget ui-corner-all");
+		self.element.find("li").removeClass(itemClasses + " ui-state-hover ui-state-focus");
 
 		if (self.originalStyle === null) {
 			self.element.removeAttr("style");
@@ -101,36 +101,36 @@ $.widget( "ui.ticker", {
 			self.element.attr("style", self.originalStyle);
 		}
 
-		return $.Widget.prototype.destroy.call( self );
+		return $.Widget.prototype.destroy.call(self);
 	},
 	
 	_addItemBindings: function(item) {
 		var options = this.options;
 		
 		item
-			.bind( "mouseenter.ticker", function() {
-				if ( options.disabled ) {
+			.bind("mouseenter.ticker", function() {
+				if (options.disabled) {
 					return;
 				}
-				$( this ).addClass( "ui-state-hover" );
+				$(this).addClass("ui-state-hover");
 			})
-			.bind( "mouseleave.ticker", function() {
-				if ( options.disabled ) {
+			.bind("mouseleave.ticker", function() {
+				if (options.disabled) {
 					return;
 				}
-				$( this ).removeClass( "ui-state-hover" );
+				$(this).removeClass("ui-state-hover");
 			})
-			.bind( "focus.ticker", function() {
-				if ( options.disabled ) {
+			.bind("focus.ticker", function() {
+				if (options.disabled) {
 					return;
 				}
-				$( this ).addClass( "ui-state-focus" );
+				$(this).addClass("ui-state-focus");
 			})
-			.bind( "blur.ticker", function() {
-				if ( options.disabled ) {
+			.bind("blur.ticker", function() {
+				if (options.disabled) {
 					return;
 				}
-				$( this ).removeClass( "ui-state-focus" );
+				$(this).removeClass("ui-state-focus");
 			});
 	},
 	
@@ -139,7 +139,7 @@ $.widget( "ui.ticker", {
 			options = self.options;
 			
 		if (self.options.next !== null && self.readyForNext) {
-			var lastItem = self.element.children().last().clone(true);
+			var lastItem = self.element.find("li").last().clone(true);
 			lastItem.removeClass(itemClasses + " ui-state-hover ui-state-focus");
 			self.readyForNext = false;
 			self.options.next(lastItem, function() {
@@ -166,13 +166,13 @@ $.widget( "ui.ticker", {
 				.prependTo(self.element)
 				.css('visibility', 'hidden')
 				.slideDown(options.scrollTime, function() {
-					$( this )
+					$(this)
 						.fadeTo(0, 0)
 						.css('visibility', 'visible')
 						.fadeTo(options.fadeTime, 1, function() {
 							self._trigger('afterFade');
 						});
-						self.element.children().last().remove();
+						self.element.find("li").last().remove();
 						self.readyForNext = true;
 						self._trigger('afterScroll');
 				});
@@ -182,8 +182,8 @@ $.widget( "ui.ticker", {
 		}
     },
 	
-	_setOption: function( key, value ) {
-		$.Widget.prototype._setOption.apply( this, arguments );
+	_setOption: function(key, value) {
+		$.Widget.prototype._setOption.apply(this, arguments);
 		
 		switch (key) {
 			case "active":
@@ -219,8 +219,8 @@ $.widget( "ui.ticker", {
 	}
 });
 
-$.extend( $.ui.ticker, {
+$.extend($.ui.ticker, {
 	version: "@VERSION"
 });
 
-})( jQuery );
+})(jQuery);
