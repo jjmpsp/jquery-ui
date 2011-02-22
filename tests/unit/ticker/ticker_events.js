@@ -13,7 +13,7 @@ test("beforeScroll", function() {
 		initialTimeout: 0,
 		scrollTime: 0,
 		fadeTime: 0,
-		nextItem: function(lastItem) { return $('<li>TestItem</li>'); },
+		next: function(lastItem, nextItem) { nextItem($('<li>TestItem</li>')); },
 		beforeScroll: function(event, ui) {
 			ok(true, 'before scrolling fires beforeScroll callback');
 			equals($("#ticker li").length, 6, "list does have all items");
@@ -33,7 +33,7 @@ test("afterScroll", function() {
 		initialTimeout: 0,
 		scrollTime: 0,
 		fadeTime: 10000,
-		nextItem: function(lastItem) { return $('<li>TestItem</li>'); },
+		next: function(lastItem, nextItem) { nextItem($('<li>TestItem</li>')); },
 		afterScroll: function(event, ui) { 
 			ok(true, 'after scrolling fires afterScroll callback');
 			equals($("#ticker li").length, 6, "list does have all items");
@@ -54,7 +54,7 @@ test("afterFade", function() {
 		initialTimeout: 0,
 		scrollTime: 0,
 		fadeTime: 100,
-		nextItem: function(lastItem) { return $('<li>TestItem</li>'); },
+		next: function(lastItem, nextItem) { nextItem($('<li>TestItem</li>')); },
 		afterFade: function(event, ui) {
 			ok(true, 'after fade fires afterFade callback');
 			equals($("#ticker li").length, 6, "list does have all items");
@@ -67,7 +67,7 @@ test("afterFade", function() {
 	window.setTimeout(function() { start(); }, 300);
 });
 
-test("correct order of nextItem call and events", function() {
+test("correct order of next called and events", function() {
 	expect(4);
 	stop();
 
@@ -77,11 +77,11 @@ test("correct order of nextItem call and events", function() {
 		initialTimeout: 0,
 		scrollTime: 50,
 		fadeTime: 50,
-		nextItem: function(lastItem) {
+		next: function(lastItem, nextItem) {
 			if (counter == 0) {
-				ok(true, "nextItem was called first")
+				ok(true, "next was called first")
 			}
-			return $('<li>TestItem</li>');
+			nextItem($('<li>TestItem</li>'));
 		},
 		beforeScroll: function(event, ui) {
 			if (counter == 0) {
@@ -100,7 +100,7 @@ test("correct order of nextItem call and events", function() {
 		}
 	});
 
-	window.setTimeout(function() { start(); }, 200);
+	window.setTimeout(function() { start(); }, 400);
 });
 
 })(jQuery);

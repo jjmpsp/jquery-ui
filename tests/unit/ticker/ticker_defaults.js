@@ -10,7 +10,7 @@ var ticker_defaults = {
 	mouseOffTimeout: 4000,
 	scrollTime: 800,
 	fadeTime: 1000,
-	nextItem: null
+	next: function(lastItem, nextItem) { nextItem(lastItem); }
 };
 
 commonWidgetTests('ticker', { defaults: ticker_defaults });

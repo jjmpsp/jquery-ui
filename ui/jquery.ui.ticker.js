@@ -23,7 +23,7 @@ $.widget( "ui.ticker", {
 		mouseOffTimeout: 4000,
 		scrollTime: 800,
 		fadeTime: 1000,
-		nextItem: null
+		next: function(lastItem, nextItem) { nextItem(lastItem); }
 	},
 	
 	_create: function() {
@@ -43,7 +43,7 @@ $.widget( "ui.ticker", {
 				self.speed = options.mouseOnTimeout;
 				if (options.active && self.timeoutId !== null) {
 					window.clearTimeout(self.timeoutId);
-					self.timeoutId = window.setTimeout(function() { self._scroll(); }, self.speed);
+					self.timeoutId = window.setTimeout(function() {self._scroll();}, self.speed);
 				}
 			})
 			.bind( "mouseleave.ticker", function() {
@@ -53,7 +53,7 @@ $.widget( "ui.ticker", {
 				self.speed = options.mouseOffTimeout;
 				if (options.active && self.timeoutId !== null) {
 					window.clearTimeout(self.timeoutId);
-					self.timeoutId = window.setTimeout(function() { self._scroll(); }, self.speed);
+					self.timeoutId = window.setTimeout(function() {self._scroll();}, self.speed);
 				}
 			});
 			
@@ -73,9 +73,11 @@ $.widget( "ui.ticker", {
 	_init: function() {
 		var self = this,
 			options = self.options;
+
+		self.readyForNext = true;
 			
 		if (options.active) {
-			self.timeoutId = window.setTimeout(function() { self._scroll() }, options.initialTimeout);
+			self.timeoutId = window.setTimeout(function() {self._scroll()}, options.initialTimeout);
 		}
 	},
 
@@ -134,42 +136,51 @@ $.widget( "ui.ticker", {
 	
 	_scroll: function() {
 		var self = this,
-			options = self.options,
-			newItem,
-			lastItem;
+			options = self.options;
 			
-		lastItem = self.element.children().last().clone(true);
-		lastItem.removeClass(itemClasses + " ui-state-hover ui-state-focus");
-		
-		if (self.options.next !== null) {
-			newItem = self.options.nextItem(lastItem);
-		
-			if (newItem != null && newItem.length > 0) {
-				self._trigger('beforeScroll');
-				
-				newItem.addClass(itemClasses);
-				self._addItemBindings(newItem);
-				newItem
-					.hide()
-					.prependTo(self.element)
-					.css('visibility', 'hidden')
-					.slideDown(options.scrollTime, function() {
-						$( this )
-							.fadeTo(0, 0)
-							.css('visibility', 'visible')
-							.fadeTo(options.fadeTime, 1, function() {
-								self._trigger('afterFade');
-							});
-							self.element.children().last().remove();
-							self._trigger('afterScroll');
-					});
-			}
+		if (self.options.next !== null && self.readyForNext) {
+			var lastItem = self.element.children().last().clone(true);
+			lastItem.removeClass(itemClasses + " ui-state-hover ui-state-focus");
+			self.readyForNext = false;
+			self.options.next(lastItem, function() {
+				self._nextItem.apply(self, arguments);
+			});
 		}
 		
 		if (options.active) {
-			self.timeoutId = window.setTimeout(function() { self._scroll(); }, self.speed);
+			self.timeoutId = window.setTimeout(function() {self._scroll();}, self.speed);
 		}
 	},
+
+    _nextItem: function(nextItem) {
+		var self = this,
+			options = self.options;
+
+		if (nextItem != null && nextItem.length > 0) {
+			self._trigger('beforeScroll');
+
+			nextItem.addClass(itemClasses);
+			self._addItemBindings(nextItem);
+			nextItem
+				.hide()
+				.prependTo(self.element)
+				.css('visibility', 'hidden')
+				.slideDown(options.scrollTime, function() {
+					$( this )
+						.fadeTo(0, 0)
+						.css('visibility', 'visible')
+						.fadeTo(options.fadeTime, 1, function() {
+							self._trigger('afterFade');
+						});
+						self.element.children().last().remove();
+						self.readyForNext = true;
+						self._trigger('afterScroll');
+				});
+		}
+		else {
+			self.readyForNext = true;
+		}
+    },
 	
 	_setOption: function( key, value ) {
 		$.Widget.prototype._setOption.apply( this, arguments );
@@ -203,7 +214,7 @@ $.widget( "ui.ticker", {
 		
 		options.active = true;
 		if (self.timeoutId === null) {
-			self.timeoutId = window.setTimeout(function() { self._scroll(); }, options.initialTimeout);
+			self.timeoutId = window.setTimeout(function() {self._scroll();}, options.initialTimeout);
 		}
 	}
 });

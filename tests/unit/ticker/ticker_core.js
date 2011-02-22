@@ -8,7 +8,7 @@ var el;
 
 module("ticker: core");
 
-test("nextItem returns null", function() {
+test("next called", function() {
 	expect(2);
 	stop();
 
@@ -16,9 +16,8 @@ test("nextItem returns null", function() {
 		initialTimeout: 0,
 		scrollTime: 0,
 		fadeTime: 0,
-		nextItem: function(lastItem) {
-			ok(true, "nextItem is called")
-			return null;
+		next: function(lastItem) {
+			ok(true, "next called");
 		}
 	});
 
@@ -40,15 +39,57 @@ test("last item clone retains data and bindings", function() {
 		initialTimeout: 0,
 		scrollTime: 0,
 		fadeTime: 0,
-		nextItem: function(lastItem) {
-			ok(true, "nextItem is called");
+		next: function(lastItem) {
+			ok(true, "next called");
 			equals(lastItem.data("test"), "123", "last item clone retains data");
 			ok(lastItem.data("events") != null, "last item clone retains events");
-			return null;
 		}
 	});
 
 	window.setTimeout(function() { start(); }, 200);
+});
+
+test("next not called when not ready for next", function() {
+	expect(1);
+	stop();
+
+	$("#ticker").ticker({
+		initialTimeout: 0,
+		scrollTime: 0,
+		fadeTime: 0,
+		next: function(lastItem, nextItem) {
+			ok(true, "next called");
+		}
+	});
+
+	window.setTimeout(function() {
+		start();
+	}, 1000);
+});
+
+test("next called when ready for next", function() {
+	expect(1);
+	stop();
+
+	var counter = 0;
+
+	$("#ticker").ticker({
+		initialTimeout: 0,
+		scrollTime: 0,
+		fadeTime: 0,
+		next: function(lastItem, nextItem) {
+			ok(true, "next is called")
+			if (counter == 1) {
+				stop();
+			}
+			counter++;
+			nextItem(lastItem);
+		}
+	});
+
+	window.setTimeout(function() {
+		start();
+	}, 1000);
 });
 
 })(jQuery);

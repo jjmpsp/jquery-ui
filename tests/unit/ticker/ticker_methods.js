@@ -39,9 +39,9 @@ test("initial stop", function() {
 
 	$("#ticker").ticker({
 		initialTimeout: 100,
-		nextItem: function(lastItem) {
+		next: function(lastItem, nextItem) {
 			ok(false, "ticker should not scroll after it was stopped");
-			return lastItem;
+			nextItem(lastItem);
 		}
 	});	
 	$("#ticker").ticker("stop");
@@ -61,16 +61,16 @@ test("stop after scroll", function() {
 		mouseOffTimeout: 100,
 		scrollTime: 0,
 		fadeTime: 0,
-		nextItem: function(lastItem) {
+		next: function(lastItem, nextItem) {
 			if (counter == 0) {
 				ok(true, "ticker scrolled one time");
 				$("#ticker").ticker("stop");
 				counter++;
-				return lastItem;
+				nextItem(lastItem);
 			}
 			else {
 				ok(false, "ticker should not scroll after it was stopped");
-				return lastItem;
+				nextItem(lastItem);
 			}
 		}
 	});
@@ -87,7 +87,7 @@ test("start", function() {
 	$("#ticker").ticker({
 		active: false,
 		initialTimeout: 0,
-		nextItem: function(lastItem) {
+		next: function(lastItem, nextItem) {
 			if (started) {
 				ok(true, "ticker scrolled after it was started");
 				$("#ticker").ticker("stop");

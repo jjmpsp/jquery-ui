@@ -11,9 +11,9 @@ test("{initalTimout: 200}", function() {
 	var nextCalled = false;
 	$("#ticker").ticker({
 		initialTimeout: 200,
-		nextItem: function(lastItem) {
+		next: function(lastItem, nextItem) {
 			nextCalled = true;
-			return lastItem;
+			nextItem(lastItem);
 		}
 	});
 	
@@ -37,9 +37,9 @@ test("{initialTimeout: 200} after calling start method", function() {
 	var nextCalled = false;
 	$("#ticker").ticker({
 		initialTimeout: 200,
-		nextItem: function(lastItem) {
+		next: function(lastItem, nextItem) {
 			nextCalled = true;
-			return lastItem;
+			nextItem(lastItem);
 		}
 	});
 	
@@ -66,22 +66,21 @@ test("{mouseOffTimeout: 100}", function() {
 	
 	var counter = 0;
 	
-	var nextCalled = false;
 	$("#ticker").ticker({
 		initialTimeout: 0,
 		mouseOnTimeout: 10000,
 		mouseOffTimeout: 100,
-		nextItem: function(lastItem) {
+		next: function(lastItem, nextItem) {
 			ok(true, "Next called (one time after init and one time afterwards");
 			if (counter == 1) {
 				$("#ticker").ticker("stop");
 			}
 			counter++;
-			return lastItem;
+			nextItem(lastItem);
 		}
 	});
 	
-	window.setTimeout(function() { start(); }, 400 );
+	window.setTimeout(function() { start(); }, 1000 );
 });
 
 test("{mouseOnTimeout: 100}", function() {
@@ -90,39 +89,35 @@ test("{mouseOnTimeout: 100}", function() {
 	
 	var counter = 0;
 	
-	var nextCalled = false;
-	
 	$("#ticker").ticker({
 		initialTimeout: 0,
 		mouseOnTimeout: 100,
 		mouseOffTimeout: 10000,
-		nextItem: function(lastItem) {
+		next: function(lastItem, nextItem) {
 			ok(true, "Next called (one time after init and one time afterwards");
 			if (counter == 1) {
 				$("#ticker").ticker("stop");
 			}
 			counter++;
-			return lastItem;
+			nextItem(lastItem);
 		}
 	});
 	
 	$("#ticker").simulate("mouseover");
-	window.setTimeout(function() { start(); }, 400 );
+	window.setTimeout(function() { start(); }, 1000 );
 });
 
-test('{nextItem: function() {return $("TestItem")}}', function() {
+test('{next: function() { next($("TestItem")) }}', function() {
 	expect(2);
 	stop();
-	
-	var nextCalled = false;
-	
+
 	$("#ticker").ticker({
 		initialTimeout: 0,
 		scrollTime: 0,
 		fadeTime: 0,
 		mouseOffTimeout: 10000,
-		nextItem: function(lastItem) {
-			return $("<li>TestItem</li>");
+		next: function(lastItem, nextItem) {
+			nextItem($("<li>TestItem</li>"));
 		}
 	});
 	
