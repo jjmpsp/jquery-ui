@@ -14,7 +14,7 @@ There are several options to easily customize the visualization:
       scrollTime: 1200,  // the times it takes to scroll down the item list
       fadeTime: 1000, // the time it takes to fade in the next item at the top of the item list
       next: function(lastItem, nextItem) {  // this function provides a clone of the last item on the list that will be removed next
-        nextItem($(lastItem)); // the item that should be added next to the ticker must be provided to nextItem function (should be a jQuery <li> item)
+        nextItem($(lastItem)); // the item (a jQuery <li> object) that should be added next to the ticker must be provided as parameter to nextItem
       }  // in this example case (the default) the last item is directly added again to the top of the ticker
     });
 
@@ -28,7 +28,7 @@ afterFade // directly after the new item was faded in<br>
 To bind to an event (the common jQuery UI way):
 
     $("#ticker").ticker({
-      nextItem: function(lastItem) { nextItem($('<li>TestItem</li>')); },
+      nextItem: function(lastItem, nextItem) { nextItem($('<li>TestItem</li>')); },
       beforeScroll: function(event, ui) { // just do what you like to do }
     });
 
