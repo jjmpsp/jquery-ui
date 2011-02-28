@@ -1,9 +1,9 @@
 [jQuery UI](http://jqueryui.com/) - Interactions and Widgets for the web
 ================================
 
-This fork of jQuery UI includes our brand new Ticker. We also have a [live demo](http://medihack.github.com/tickerdemo/) with some customized style sheets (for having a similar look like Twitter).
+This fork of jQuery UI includes a Twitter like ticker in the ticker branch. A [live demo](http://medihack.github.com/tickerdemo/) with some customized style sheets can be found [here](http://medihack.github.com/tickerdemo/).
 
-The Ticker in its raw form is fully compatible with the jQuery UI Theming framework. It is also quite flexible and well tested.
+The Ticker in its raw form is fully compatible with the jQuery UI Theming framework. It is also quite flexible and fully Unit tested (qunit).
 
 There are several options to easily customize the visualization:
 
