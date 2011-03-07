@@ -142,9 +142,12 @@ $.widget("ui.ticker", {
 			var lastItem = self.element.find("li").last().clone(true);
 			lastItem.removeClass(itemClasses + " ui-state-hover ui-state-focus");
 			self.readyForNext = false;
-			self.options.next(lastItem, function() {
+			var nextItem = self.options.next(lastItem, function() {
 				self._nextItem.apply(self, arguments);
 			});
+			if (nextItem) {
+				self._nextItem(nextItem);
+			}
 		}
 		
 		if (options.active) {
@@ -159,9 +162,11 @@ $.widget("ui.ticker", {
 		if (nextItem != null && nextItem.length > 0) {
 			self._trigger('beforeScroll');
 
-			nextItem.addClass(itemClasses);
-			self._addItemBindings(nextItem);
-			nextItem
+			var $nextItem = $(nextItem);
+
+			$nextItem.addClass(itemClasses);
+			self._addItemBindings($nextItem);
+			$nextItem
 				.hide()
 				.prependTo(self.element)
 				.css('visibility', 'hidden')

@@ -49,6 +49,44 @@ test("last item clone retains data and bindings", function() {
 	window.setTimeout(function() { start(); }, 200);
 });
 
+test("next item can be provided by returning it in method next", function() {
+	expect(1);
+	stop();
+
+	$("#ticker").ticker({
+		initialTimeout: 0,
+		scrollTime: 0,
+		fadeTime: 0,
+		next: function(lastItem) {
+			return $("<li>Next Item</li>");
+		}
+	});
+
+	window.setTimeout(function() {
+		equals($("#ticker li:first").text(), "Next Item", "ticker has not scrolled");
+		start();
+	}, 100);
+});
+
+test("next item can be provided by calling nextItem method", function() {
+	expect(1);
+	stop();
+
+	$("#ticker").ticker({
+		initialTimeout: 0,
+		scrollTime: 0,
+		fadeTime: 0,
+		next: function(lastItem, nextItem) {
+			nextItem($("<li>Next Item</li>"));
+		}
+	});
+
+	window.setTimeout(function() {
+		equals($("#ticker li:first").text(), "Next Item", "ticker has not scrolled");
+		start();
+	}, 100);
+});
+
 test("next not called when not ready for next", function() {
 	expect(1);
 	stop();
