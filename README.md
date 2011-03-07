@@ -1,9 +1,9 @@
 [jQuery UI](http://jqueryui.com/) - Interactions and Widgets for the web
 ================================
 
-This fork of jQuery UI includes our brand new Ticker. We also have a [live demo](http://medihack.github.com/tickerdemo/) with some customized style sheets (for having a similar look like Twitter).
+This fork of jQuery UI includes a Twitter like ticker in the ticker branch. A [live demo](http://medihack.github.com/tickerdemo/) with some customized style sheets can be found [here](http://medihack.github.com/tickerdemo/).
 
-The Ticker in its raw form is fully compatible with the jQuery UI Theming framework. It is also quite flexible and well tested.
+The Ticker in its raw form is fully compatible with the jQuery UI Theming framework. It is also quite flexible and fully Unit tested (qunit).
 
 There are several options to easily customize the visualization:
 
@@ -30,12 +30,12 @@ afterFade // directly after the new item was faded in<br>
 To bind to an event (the common jQuery UI way):
 
     $("#ticker").ticker({
-      nextItem: function(lastItem) { return $('<li>TestItem</li>'); },
+      nextItem: function(lastItem, nextItem) { nextItem($('<li>TestItem</li>')); },
       beforeScroll: function(event, ui) { // just do what you like to do }
     });
 
 We also provide some methods:<br>
-stop // stop the ticker immediately (respectively after a current on going scrolling/fading was finished)<br>
+stop // stop the ticker immediately (respectively after the scrolling/fading is finished)<br>
 start // start the ticker again<br>
 
 To call those methods (the common jQuery UI way):
